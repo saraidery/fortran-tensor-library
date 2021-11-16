@@ -103,7 +103,7 @@ contains
 !!
       implicit none
 !
-      type(tensor), intent(in) :: this
+      class(tensor), intent(in) :: this
       integer, intent(in) :: first, last
 !
       integer :: n_elements

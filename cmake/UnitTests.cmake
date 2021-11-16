@@ -19,3 +19,5 @@ endmacro()
 add_ftensor_unittest(create_tensor "tensor; constructor")
 # String utilities
 add_ftensor_unittest(is_substring_in_string_test "string; substring")
+add_ftensor_unittest(find_substrings "string; substring")
+

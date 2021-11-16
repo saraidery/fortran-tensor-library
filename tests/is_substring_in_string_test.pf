@@ -5,11 +5,11 @@ module is_substring_in_string_test
 !
 contains
 !
-   @test 
-   subroutine found_substring()
+   @test
+   subroutine substring_found()
 !
       character(len=2)  :: substring
-      character(len=25) :: string
+      character(len=23) :: string
 !
       integer :: index = 0
       logical :: found = .false.
@@ -21,7 +21,63 @@ contains
 !
       @assertEqual(4, index)
 !
-   end subroutine found_substring
+   end subroutine substring_found
+!
+!
+   @test
+   subroutine substring_first()
+!
+      character(len=2)  :: substring
+      character(len=20) :: string
+!
+      integer :: index = 0
+      logical :: found = .false.
+!
+      substring = "eT"
+      string = "eT the best program?"
+!
+      call is_substring_in_string(string, substring, index, found)
+!
+      @assertEqual(1, index)
+!
+   end subroutine substring_first
+!
+!
+   @test
+   subroutine substring_last()
+!
+      character(len=2)  :: substring
+      character(len=20) :: string
+!
+      integer :: index = 0
+      logical :: found = .false.
+!
+      substring = "eT"
+      string = "The best program, eT"
+!
+      call is_substring_in_string(string, substring, index, found)
+!
+      @assertEqual(19, index)
+!
+   end subroutine substring_last
+!
+!
+   @test
+   subroutine substring_not_found()
+!
+      character(len=8)  :: substring
+      character(len=23) :: string
+!
+      integer :: index = 0
+      logical :: found = .false.
+!
+      substring = "gaussian"
+      string = "Is eT the best program?"
+!
+      call is_substring_in_string(string, substring, index, found)
+!
+      @assertEqual(0, index)
+!
+   end subroutine substring_not_found
 !
 end module is_substring_in_string_test
-

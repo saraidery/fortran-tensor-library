@@ -28,7 +28,7 @@ contains
 !
       found = .false.
 !
-      do while (cursor .lt. len(string))
+      do while (cursor .le. len(string))
 !
          if (string(start : cursor) == trim(substring)) then
 !
@@ -42,6 +42,8 @@ contains
 !
          endif
       enddo
+!
+      if (.not. found) start = 0
 !
    end subroutine is_substring_in_string
 !
@@ -59,9 +61,10 @@ contains
       character(len=*), intent(in) :: string_a, string_b
 !
       integer, intent(out) :: index_b, length
+      logical, intent(out) :: found
 !
-      integer :: a
-      logical :: found
+      integer :: a, local_index
+      logical :: local_found
 !
       found = .false.
       index_b = 0
@@ -69,10 +72,15 @@ contains
 !
       do a = 1, len(string_a)
 !
-         call is_substring_in_string(string_b, string_a(1:a), index_b, found)
+         call is_substring_in_string(string_b, string_a(1:a), &
+                                     local_index, local_found)
 !
-         if (found) then
+         if (local_found) then
+            found = local_found
+            index_b = local_index
             length = a
+         else
+            exit
          end if
 !
       end do
@@ -93,9 +101,10 @@ contains
       character(len=*), intent(in) :: string_a, string_b
 !
       integer, intent(out) :: index_b, length
+      logical, intent(out) :: found
 !
-      integer :: a, len_a
-      logical :: found
+      integer :: a, len_a, local_index
+      logical :: local_found
 !
       found = .false.
       index_b = 0
@@ -105,10 +114,15 @@ contains
 !
       do a = len_a, 1, -1
 !
-         call is_substring_in_string(string_b, string_a(a:len_a), index_b, found)
+         call is_substring_in_string(string_b, string_a(a:len_a), &
+                                     local_index, local_found)
 !
-         if (found) then
+         if (local_found) then
+            found = local_found
+            index_b = local_index
             length = len_a - a + 1
+         else
+            exit
          end if
 !
       end do

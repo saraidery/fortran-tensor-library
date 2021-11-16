@@ -14,14 +14,15 @@ set(CMAKE_MODULE_PATH
 
 # Set options with standard values
 
-option(ENABLE_64BIT_INTEGERS  "Enable 64-bit integers"                                   ON)
-option(ENABLE_AUTO_BLAS       "Enable CMake to autodetect BLAS"                          ON)
-option(ENABLE_AUTO_LAPACK     "Enable CMake to autodetect LAPACK"                        ON)
-option(ENABLE_OMP             "Enable OpenMP parallelization"                            ON)
-option(ENABLE_THREADED_MKL    "Enable OpenMP parallelization in MKL"                     ON)
-option(ENABLE_RUNTIME_CHECKS  "Enable all runtime checks (for debug purposes)"           OFF)
+option(ENABLE_64BIT_INTEGERS  "Enable 64-bit integers"                         ON)
+option(ENABLE_AUTO_BLAS       "Enable CMake to autodetect BLAS"                ON)
+option(ENABLE_AUTO_LAPACK     "Enable CMake to autodetect LAPACK"              ON)
+option(ENABLE_OMP             "Enable OpenMP parallelization"                  ON)
+option(ENABLE_THREADED_MKL    "Enable OpenMP parallelization in MKL"           ON)
+option(ENABLE_RUNTIME_CHECKS  "Enable all runtime checks (for debug purposes)" OFF)
 
 set (Fortran_sources
+     ${CMAKE_SOURCE_DIR}/src/kinds.F90
      ${CMAKE_SOURCE_DIR}/src/ftensor_program.F90
      ${CMAKE_SOURCE_DIR}/src/tensor_class.F90)
 

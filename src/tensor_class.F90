@@ -1,28 +1,30 @@
 module tensor_class
 !
-   type :: tensor 
+   use kinds
 !
-      integer :: rank 
+   type :: tensor
+!
+      integer :: rank
 !
       integer, dimension(:), allocatable, private :: dimensions
 !
-      real(8), dimension(:), allocatable, private :: array 
+      real(dp), dimension(:), allocatable, private :: array
 !
    end type tensor
 !
-   interface tensor 
+   interface tensor
 !
       procedure :: new_tensor
 !
-   end interface tensor 
+   end interface tensor
 !
 contains
 !
    function new_tensor(dimensions) result(this)
 !
-      implicit none 
+      implicit none
 !
-      type(tensor) :: this 
+      type(tensor) :: this
 !
       integer, dimension(:) :: dimensions
 !

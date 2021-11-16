@@ -57,15 +57,9 @@ if(APPLE)
 endif(APPLE)
 
 # Link library to Lapack, Libint, and PCMSolver 
-target_link_libraries(ftensor_library ${lapackblas_libraries})
+target_link_libraries(ftensor_library ${lapackblas_libraries} ${EXTRA_LINKER_FLAGS})
 
 target_include_directories(ftensor_library PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
-
-add_executable(ftensor ${CMAKE_SOURCE_DIR}/src/ftensor_program.F90)
-
-target_link_libraries(ftensor ${lapackblas_libraries} ftensor_library ${EXTRA_LINKER_FLAGS})
-
-set_target_properties(ftensor PROPERTIES LINKER_LANGUAGE Fortran)
 
 if(ENABLE_RUNTIME_CHECKS)
     message(STATUS "Runtime checks enabled")
@@ -78,6 +72,9 @@ if(ENABLE_PFUNIT)
   cmake_minimum_required(VERSION 3.12) # Due to GFTL (used by pFUnit), 
                                        # which sets <prefix>_ROOT CMake variables, 
                                        # assuming >= 3.12 policy (CMP0074)
+
+
+  list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/submodules/pFUnit/build/installed")
 
   find_package(PFUNIT)
 

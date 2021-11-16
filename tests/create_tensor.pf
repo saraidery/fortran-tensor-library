@@ -1,0 +1,19 @@
+module create_tensor
+!
+   use funit
+   use tensor_class, only: tensor
+!
+contains
+!
+   @test 
+   subroutine test_create_tensor()
+!
+      type(tensor), allocatable :: my_tensor
+!
+      my_tensor = tensor([5, 100, 2, 6])
+!
+      @assertEqual(1,1)
+!
+   end subroutine test_create_tensor
+!
+end module create_tensor

@@ -1,5 +1,8 @@
 build*
 
+# Editor files
+*.swp
+
 # Prerequisites
 *.d
 

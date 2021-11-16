@@ -20,7 +20,7 @@ option(ENABLE_AUTO_LAPACK     "Enable CMake to autodetect LAPACK"              O
 option(ENABLE_OMP             "Enable OpenMP parallelization"                  ON)
 option(ENABLE_THREADED_MKL    "Enable OpenMP parallelization in MKL"           ON)
 option(ENABLE_RUNTIME_CHECKS  "Enable all runtime checks (for debug purposes)" OFF)
-option(ENABLE_PFUNIT          "Enable unit tests with pFUnit"                  OFF)
+option(ENABLE_PFUNIT          "Enable unit tests with pFUnit"                  ON)
 
 
 set (Fortran_sources

@@ -22,7 +22,8 @@ option(ENABLE_THREADED_MKL    "Enable OpenMP parallelization in MKL"            
 option(ENABLE_RUNTIME_CHECKS  "Enable all runtime checks (for debug purposes)"           OFF)
 
 set (Fortran_sources
-     src/eT_program.F90)
+     ${CMAKE_SOURCE_DIR}/src/ftensor_program.F90
+     ${CMAKE_SOURCE_DIR}/src/tensor_class.F90)
 
 include(Fortran_flags)
 
@@ -42,7 +43,7 @@ if(LAPACK_FOUND AND BLAS_FOUND)
     set(lapackblas_libraries ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES})
 endif()
 
-add_executable(ftensor ${CMAKE_SOURCE_DIR}/src/ftensor_program.F90)
+add_executable(ftensor ${Fortran_sources})
 
 target_link_libraries(ftensor ${lapackblas_libraries} ${EXTRA_LINKER_FLAGS})
 

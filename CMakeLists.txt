@@ -25,6 +25,7 @@ option(ENABLE_PFUNIT          "Enable unit tests with pFUnit"                  O
 
 set (Fortran_sources
      ${CMAKE_SOURCE_DIR}/src/kinds.F90
+     ${CMAKE_SOURCE_DIR}/src/string_utilities.F90
      ${CMAKE_SOURCE_DIR}/src/tensor_class.F90)
 
 include(Fortran_flags)
@@ -56,8 +57,8 @@ if(APPLE)
     SET(CMAKE_CXX_ARCHIVE_FINISH "<CMAKE_RANLIB> -no_warning_for_no_symbols -c <TARGET>")
 endif(APPLE)
 
-# Link library to Lapack, Libint, and PCMSolver 
-target_link_libraries(ftensor_library ${lapackblas_libraries} ${EXTRA_LINKER_FLAGS})
+# Link library to Lapack, Libint, and PCMSolver
+target_link_libraries(ftensor_library ${lapackblas_libraries})
 
 target_include_directories(ftensor_library PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -67,10 +68,10 @@ endif()
 
 if(ENABLE_PFUNIT)
 
-  # pFUnit - Fortran unit testing package 
+  # pFUnit - Fortran unit testing package
 
-  cmake_minimum_required(VERSION 3.12) # Due to GFTL (used by pFUnit), 
-                                       # which sets <prefix>_ROOT CMake variables, 
+  cmake_minimum_required(VERSION 3.12) # Due to GFTL (used by pFUnit),
+                                       # which sets <prefix>_ROOT CMake variables,
                                        # assuming >= 3.12 policy (CMP0074)
 
 
@@ -79,7 +80,7 @@ if(ENABLE_PFUNIT)
   find_package(PFUNIT)
 
   if(PFUNIT_FOUND)
-    enable_testing()  
+    enable_testing()
     include(UnitTests)
     message(STATUS "Unit testing requested, and pFUnit successfully located!")
   else()

@@ -1,0 +1,27 @@
+module is_substring_in_string_test
+!
+   use funit
+   use string_utilities, only: is_substring_in_string
+!
+contains
+!
+   @test 
+   subroutine found_substring()
+!
+      character(len=2)  :: substring
+      character(len=25) :: string
+!
+      integer :: index = 0
+      logical :: found = .false.
+!
+      substring = "eT"
+      string = "Is eT the best program?"
+!
+      call is_substring_in_string(string, substring, index, found)
+!
+      @assertEqual(4, index)
+!
+   end subroutine found_substring
+!
+end module is_substring_in_string_test
+

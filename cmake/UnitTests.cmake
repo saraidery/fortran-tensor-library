@@ -15,4 +15,7 @@ macro(add_ftensor_unittest _name _labels)
 
 endmacro()
 
+# Tensor class
 add_ftensor_unittest(create_tensor "tensor; constructor")
+# String utilities
+add_ftensor_unittest(is_substring_in_string_test "string; substring")

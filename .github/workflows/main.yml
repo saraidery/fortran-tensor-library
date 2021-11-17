@@ -1,6 +1,7 @@
 on: [push]
 
 name: 'Hello World'
-runs:
-  using: 'docker'
-  image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
+jobs:
+  runs:
+    using: 'docker'
+    image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main

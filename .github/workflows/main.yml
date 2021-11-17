@@ -2,6 +2,7 @@ on: [push]
 
 jobs:
   container:
+    runs-on: ubuntu-latest
     image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
     steps:
       - name: HEI

@@ -4,7 +4,11 @@ jobs:
   hello_world:
     runs-on: ubuntu-latest
     name: Say hi
+  container:
+    runs-on: ubuntu-latest
+    container: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
     steps:
-      - name: Hello world action step
-        id: hello
-        container: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
+      - run: |
+          echo This job does specify a container.
+          echo It runs in the container instead of the VM.
+        name: Run in container

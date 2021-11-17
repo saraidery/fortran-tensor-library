@@ -4,5 +4,5 @@ jobs:
   Testing-stuffings:
     container:
       image: ghcr.io/saraidery/fortran-tensor-library-docker-image:main
-      steps:
-        - run: echo "HELP ME"
+    steps:
+      - run: echo "HELP ME"

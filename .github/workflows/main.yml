@@ -6,5 +6,5 @@ jobs:
     container:
       image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
     steps:
-      - run: git clone --recursive git@github.com:saraidery/fortran-tensor-library.git
-      - run: cd fortran-tensor-library
+      - uses: actions/checkout@v2
+      - run: pwd

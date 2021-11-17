@@ -1,9 +1,6 @@
 on: [push]
 
-jobs:
-  runs-on: ubuntu-latest
-  container:
-    image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
-    steps:
-      - name: HEI
-        run: echo "Hello World!"
+name: 'Hello World'
+runs:
+  using: 'docker'
+  image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main

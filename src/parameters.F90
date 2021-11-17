@@ -1,4 +1,4 @@
-module kinds
+module parameters
 !
    use, intrinsic :: iso_fortran_env, only: real32, real64, int32, int64
 !
@@ -9,4 +9,7 @@ module kinds
    integer, parameter :: i64 = int64
    integer, parameter :: i32 = int32
 !
-end module kinds
+   real(dp), parameter :: zero   =  0.0D0
+   real(dp), parameter :: one    =  1.0D0
+!
+end module parameters

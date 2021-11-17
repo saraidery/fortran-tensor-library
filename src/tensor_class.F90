@@ -5,7 +5,7 @@ module tensor_class
 !!    Class for arbitrary-rank tensors. Stores the tensor and handles
 !!    its indices and total dimensionality.
 !!
-   use kinds
+   use parameters
 !
    type :: tensor
 !

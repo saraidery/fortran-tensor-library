@@ -1,9 +1,6 @@
 on: [push]
 
 jobs:
-  hello_world:
-    runs-on: ubuntu-latest
-    name: Say hi
   container:
     image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
     steps:

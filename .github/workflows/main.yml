@@ -7,4 +7,4 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: actions/fortran-tensor-library-docker-action@v0
+        uses: saraidery/fortran-tensor-library-docker-action@v0

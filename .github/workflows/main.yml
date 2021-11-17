@@ -6,4 +6,4 @@ jobs:
     container:
       image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
     steps:
-      - run: echo "HELP ME"
+      - run: actions/checkout@v2

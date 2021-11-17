@@ -7,8 +7,3 @@ jobs:
   container:
     runs-on: ubuntu-latest
     container: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
-    steps:
-      - run: |
-          echo This job does specify a container.
-          echo It runs in the container instead of the VM.
-        name: Run in container

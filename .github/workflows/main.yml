@@ -1,7 +1,7 @@
 on: [push]
 
 jobs:
-  Testing stuffings:
+  Testing-stuffings:
     runs-on: ubuntu-latest
     steps:
       - run: echo "HELP ME"

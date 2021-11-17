@@ -4,6 +4,6 @@ jobs:
   Testing-stuffings:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/saraidery/fortran-tensor-library-docker-image:main
+      image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
     steps:
       - run: echo "HELP ME"

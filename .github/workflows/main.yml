@@ -2,6 +2,7 @@ on: [push]
 
 jobs:
   Testing-stuffings:
+    runs-on: ubuntu-latest
     container:
       image: ghcr.io/saraidery/fortran-tensor-library-docker-image:main
     steps:

@@ -5,5 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Say hi
   container:
-    runs-on: ubuntu-latest
-    container: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
+    image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
+    steps:
+      - name: HEI
+        run: echo "Hello World!"

@@ -1,7 +1,7 @@
 on: [push]
 
-name: 'Hello World'
 jobs:
-  runs:
-    using: 'docker'
-    image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
+  Testing stuffings:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "HELP ME"

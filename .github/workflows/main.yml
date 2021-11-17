@@ -1,0 +1,10 @@
+on: [push]
+
+jobs:
+  hello_world:
+    runs-on: ubuntu-latest
+    name: Say hi
+    steps:
+      - name: Hello world action step
+        id: hello
+        uses: actions/fortran-tensor-library-docker-action@v0

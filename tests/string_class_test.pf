@@ -5,8 +5,8 @@ module string_class_test
 !
 contains
 !
-   @test 
-   subroutine test_string_creation()
+   @test
+   subroutine create_string()
 !
       type(string), allocatable :: my_string
       integer :: length
@@ -18,6 +18,111 @@ contains
 !
       @assertEqual(length, 12)
 !
-   end subroutine test_string_creation
+   end subroutine create_string
+!
+!
+   @test
+   subroutine copy_string()
+!
+      type(string), allocatable :: my_string, copy
+      integer :: length
+!
+      my_string = string("String to be copied")
+      copy = string(my_string)
+!
+      length = copy%get_length()
+      call copy%print_()
+!
+      @assertEqual(length, 19)
+!
+   end subroutine copy_string
+!
+!
+   @test
+   subroutine substring_found()
+!
+      type(string) :: my_string
+      character(len=2)  :: substring
+!
+      integer :: index, check_bool = 0
+      logical :: found
+!
+      substring = "eT"
+      my_string = string("Is eT the best program?")
+!
+      call my_string%find_substring(substring, index, found)
+!
+      if (found) check_bool = 1
+!
+      @assertEqual(1, check_bool)
+      @assertEqual(4, index)
+!
+   end subroutine substring_found
+!
+!
+   @test
+   subroutine substring_not_found()
+!
+      character(len=8)  :: substring
+      type(string) :: my_string
+!
+      integer :: index, check_bool = 1
+      logical :: found
+!
+      substring = "gaussian"
+      my_string = string("Is eT the best program?")
+!
+      call my_string%find_substring(substring, index, found)
+!
+      if (.not. found) check_bool = 0
+!
+      @assertEqual(0, check_bool)
+      @assertEqual(0, index)
+!
+   end subroutine substring_not_found
+!
+!
+   @test
+   subroutine substring_first()
+!
+      character(len=1)  :: substring
+      type(string) :: my_string
+!
+      integer :: index, check_bool = 0
+      logical :: found
+!
+      substring = "I"
+      my_string = string("Is eT the best program?")
+!
+      call my_string%find_substring(substring, index, found)
+!
+      if (found) check_bool = 1
+!
+      @assertEqual(1, check_bool)
+      @assertEqual(1, index)
+!
+   end subroutine substring_first
+!
+!
+   @test
+   subroutine substring_last()
+!
+      character(len=1)  :: substring
+      type(string) :: my_string
+!
+      integer :: index, check_bool = 0
+      logical :: found
+!
+      substring = "?"
+      my_string = string("Is eT the best program?")
+!
+      call my_string%find_substring(substring, index, found)
+!
+      if (found) check_bool = 1
+!
+      @assertEqual(1, check_bool)
+      @assertEqual(23, index)
+!
+   end subroutine substring_last
 !
 end module string_class_test

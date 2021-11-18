@@ -16,3 +16,5 @@ jobs:
           cmake -DENABLE_64BIT_INTEGERS=OFF ..
           make
           ctest
+      - name: testing somthhing
+        run: pwd

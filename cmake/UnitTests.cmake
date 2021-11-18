@@ -3,7 +3,7 @@ macro(add_ftensor_unittest _name _labels)
 
    set (filename ${_name})
 
-   file (COPY ${CMAKE_SOURCE_DIR}/tests/${_name}.pf 
+   file (COPY ${CMAKE_SOURCE_DIR}/tests/${_name}.pf
          DESTINATION ${CMAKE_BINARY_DIR})
 
    add_pfunit_ctest (${filename}
@@ -19,4 +19,5 @@ endmacro()
 add_ftensor_unittest(create_tensor "tensor; constructor")
 # String class
 add_ftensor_unittest(string_class_test "string")
-
+# Contractor class
+add_ftensor_unittest(contractor_class_test "contractor")

@@ -1,0 +1,59 @@
+module contractor_class_test
+!
+   use funit
+   use contractor_class, only: contractor
+   use tensor_class, only: tensor
+   use string_class, only: string
+!
+contains
+!
+   @test
+   subroutine create_contractor()
+!
+      type(contractor), allocatable :: my_contractor
+!
+      my_contractor = contractor()
+!
+      @assertEqual(0, my_contractor%M)
+      @assertEqual(0, my_contractor%N)
+      @assertEqual(0, my_contractor%K_A)
+      @assertEqual(0, my_contractor%K_B)
+      @assertEqual(0, my_contractor%leading_dimension_A)
+      @assertEqual(0, my_contractor%leading_dimension_B)
+      @assertEqual("", my_contractor%transpose_A)
+      @assertEqual("", my_contractor%transpose_B)
+!
+   end subroutine create_contractor
+!
+!
+   @test
+   subroutine determine_contraction()
+!
+      type(contractor), allocatable :: my_contractor
+!
+      type(tensor), allocatable :: A, B
+      type(string), allocatable :: string_A, string_B
+!
+      A = tensor([10, 5, 6, 3])
+      B = tensor([6, 3, 8, 4])
+!
+      string_a = string("aick")
+      string_b = string("ckbj")
+!
+      my_contractor = contractor()
+!
+      call my_contractor%determine_contraction(A, string_A, B, string_B)
+!
+      @assertEqual(50, my_contractor%M)
+      @assertEqual(32, my_contractor%N)
+      @assertEqual(18, my_contractor%K_A)
+      @assertEqual(18, my_contractor%K_B)
+      @assertEqual(50, my_contractor%leading_dimension_A)
+      @assertEqual(18, my_contractor%leading_dimension_B)
+      @assertEqual("N", my_contractor%transpose_A)
+      @assertEqual("N", my_contractor%transpose_B)
+!
+   end subroutine determine_contraction
+!
+!
+end module contractor_class_test

@@ -15,7 +15,7 @@ module contractor_class
 !
       procedure, public  :: contract
 !
-      procedure, private :: determine_contraction
+      procedure :: determine_contraction
       procedure, private :: get_information_from_A
       procedure, private :: get_information_from_B
       procedure, private :: reset

@@ -11,4 +11,5 @@ jobs:
           ls
           mkdir build
           cd build && pwd
-          ls
+          cmake -DENABLE_64BIT_INTEGERS=OFF ..
+          make

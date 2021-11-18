@@ -8,9 +8,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          pwd /pFUnit/build
-          ls
-          mkdir build
-          cd build && pwd
-          cmake -DENABLE_64BIT_INTEGERS=OFF ..
-          make
+          ls /

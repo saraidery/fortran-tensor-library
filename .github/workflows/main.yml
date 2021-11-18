@@ -1,10 +1,10 @@
 on: [push]
 
 jobs:
-  hello_world:
+  Testing-stuffings:
     runs-on: ubuntu-latest
-    name: Say hi
+    container:
+      image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
     steps:
-      - name: Hello world action step
-        id: hello
-        uses: saraidery/fortran-tensor-library-docker-action@v0
+      - run: which gcc
+      - run: gcc --version

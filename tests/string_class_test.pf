@@ -42,12 +42,12 @@ contains
    subroutine substring_found()
 !
       type(string) :: my_string
-      character(len=2)  :: substring
+      type(string) :: substring
 !
       integer :: index, check_bool = 0
       logical :: found
 !
-      substring = "eT"
+      substring = string("eT")
       my_string = string("Is eT the best program?")
 !
       call my_string%find_substring(substring, index, found)
@@ -63,13 +63,13 @@ contains
    @test
    subroutine substring_not_found()
 !
-      character(len=8)  :: substring
+      type(string) :: substring
       type(string) :: my_string
 !
       integer :: index, check_bool = 1
       logical :: found
 !
-      substring = "gaussian"
+      substring = string("gaussian")
       my_string = string("Is eT the best program?")
 !
       call my_string%find_substring(substring, index, found)
@@ -85,13 +85,13 @@ contains
    @test
    subroutine substring_first()
 !
-      character(len=1)  :: substring
+      type(string) :: substring
       type(string) :: my_string
 !
       integer :: index, check_bool = 0
       logical :: found
 !
-      substring = "I"
+      substring = string("I")
       my_string = string("Is eT the best program?")
 !
       call my_string%find_substring(substring, index, found)
@@ -107,13 +107,13 @@ contains
    @test
    subroutine substring_last()
 !
-      character(len=1)  :: substring
+      type(string) :: substring
       type(string) :: my_string
 !
       integer :: index, check_bool = 0
       logical :: found
 !
-      substring = "?"
+      substring = string("?")
       my_string = string("Is eT the best program?")
 !
       call my_string%find_substring(substring, index, found)
@@ -124,5 +124,117 @@ contains
       @assertEqual(23, index)
 !
    end subroutine substring_last
+!
+!
+   @test
+   subroutine convert_to_lowercase()
+!
+      type(string) :: my_string
+!
+      my_string = string("ABCDEFG")
+!
+      call my_string%convert_to_lowercase()
+!
+      @assertEqual(my_string%chars, "abcdefg")
+!
+   end subroutine convert_to_lowercase
+!
+!
+   @test
+   subroutine find_longest_common_substring()
+!
+      type(string) :: string_a, string_b
+!
+      integer :: i_a = 0, i_b = 0, length = 0, counter = 0
+!
+      string_a = string("aibjck")
+      string_b = string("ckde")
+!
+      call string_a%find_longest_common_substring(string_b, i_a, i_b, length, counter)
+!
+      @assertEqual(5, i_a, "index a")
+      @assertEqual(1, i_b, "index b")
+      @assertEqual(2, length, "length")
+      @assertEqual(1, counter, "counter")
+!
+   end subroutine find_longest_common_substring
+!
+!
+   @test
+   subroutine common_substring_first_index()
+!
+      type(string) :: string_a, string_b
+!
+      integer :: i_a = 0, i_b = 0, length = 0
+!
+      string_a = string("caibj")
+      string_b = string("cde")
+!
+      call string_a%find_longest_common_substring(string_b, i_a, i_b, length)
+!
+      @assertEqual(1, i_a, "index a")
+      @assertEqual(1, i_b, "index b")
+      @assertEqual(1, length, "length")
+!
+   end subroutine common_substring_first_index
+!
+!
+   @test
+   subroutine common_substring_last_index()
+!
+      type(string) :: string_a, string_b
+!
+      integer :: i_a = 0, i_b = 0, length = 0
+!
+      string_a = string("aibjk")
+      string_b = string("dek")
+!
+      call string_a%find_longest_common_substring(string_b, i_a, i_b, length)
+!
+      @assertEqual(5, i_a, "index a")
+      @assertEqual(3, i_b, "index b")
+      @assertEqual(1, length, "length")
+!
+   end subroutine common_substring_last_index
+!
+!
+   @test
+   subroutine find_two_common_substrings()
+!
+      type(string) :: string_a, string_b
+!
+      integer :: i_a = 0, i_b = 0, length = 0, counter = 0
+!
+      string_a = string("aickbjde")
+      string_b = string("ckde")
+!
+      call string_a%find_longest_common_substring(string_b, i_a, i_b, length, counter)
+!
+      @assertEqual(3, i_a, "index a")
+      @assertEqual(1, i_b, "index b")
+      @assertEqual(2, length, "length")
+      @assertEqual(2, counter, "counter")
+!
+   end subroutine find_two_common_substrings
+!
+!
+   @test
+   subroutine no_common_substrings()
+!
+      type(string) :: string_a, string_b
+!
+      integer :: i_a, i_b, length, counter
+!
+      string_a = string("aibjckdl")
+      string_b = string("xyz")
+!
+      call string_a%find_longest_common_substring(string_b, i_a, i_b, length, counter)
+!
+      @assertEqual(0, i_a, "index a")
+      @assertEqual(0, i_b, "index b")
+      @assertEqual(0, length, "length")
+      @assertEqual(0, counter, "counter")
+!
+   end subroutine no_common_substrings
 !
 end module string_class_test

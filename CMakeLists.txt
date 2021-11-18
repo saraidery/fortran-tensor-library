@@ -25,7 +25,6 @@ option(ENABLE_PFUNIT          "Enable unit tests with pFUnit"                  O
 
 set (Fortran_sources
      ${CMAKE_SOURCE_DIR}/src/parameters.F90
-     ${CMAKE_SOURCE_DIR}/src/string_utilities.F90
      ${CMAKE_SOURCE_DIR}/src/string_class.F90
      ${CMAKE_SOURCE_DIR}/src/tensor_class.F90)
 

@@ -17,4 +17,6 @@ jobs:
           make
           ctest
       - name: testing somthhing
-        run: pwd
+        run: |
+          ls
+          cd build

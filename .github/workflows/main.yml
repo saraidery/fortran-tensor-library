@@ -6,7 +6,8 @@ jobs:
     container:
       image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
     steps:
-      - uses: actions/checkout@v2
+      - name: checkout branch
+        uses: actions/checkout@v2
       - name: build and run
         run: |
           export PFUNIT_DIR="/pFUnit/build/installed"

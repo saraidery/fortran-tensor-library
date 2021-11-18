@@ -15,6 +15,7 @@ module string_class
       procedure, public :: get_length
       procedure, public :: print_
       procedure, public :: find_substring
+      procedure, public :: convert_to_lowercase
 !
    end type string
 !
@@ -101,14 +102,14 @@ contains
       implicit none
 !
       class(string), intent(in) :: this
-      character(len=*), intent(in)  :: substring
+      class(string), intent(in) :: substring
 !
       integer, intent(out) :: start_index
       logical, intent(out) :: found
 !
       integer :: substring_length, cursor
 !
-      substring_length = len(trim(substring))
+      substring_length = substring%get_length()
 !
       start_index = 1
       cursor = start_index + substring_length - 1
@@ -117,7 +118,7 @@ contains
 !
       do while (cursor .le. len(this%string))
 !
-         if (this%string(start_index : cursor) == trim(substring)) then
+         if (this%string(start_index : cursor) == substring%string) then
 !
             found = .true.
             exit
@@ -133,6 +134,46 @@ contains
       if (.not. found) start_index = 0
 !
    end subroutine find_substring
+!
+!
+   subroutine convert_to_lowercase(this)
+!!
+!!    Convert to lowercase
+!!
+!!    Taken from string_utilities.F90 by Eirik F. Kjønstad
+!!    (https://gitlab.com/eT-program/eT/-/blob/0814712a2c4cd4e931361aaaa267ee7cea877f40/src/tools/string_utilities.F90)
+!!
+!!    Assumes ASCII table for representing characters as integers,
+!!    where the lowercase letter is +32 relative to the uppercase letters.
+!!
+!!    Note: uppercase (65-90) and lowercase (97-122).
+!!
+      implicit none
+!
+      class(string) :: this
+!
+      integer :: element, current_character
+!
+      do element = 1, this%get_length()
+!
+!        Represent character as integer
+         current_character = ichar(this%string(element : element))
+!
+!        Convert if character is in the range of uppercase characters
+!
+         if (current_character >= 65 .and. current_character <= 90) then ! Between A and Z
+!
+            current_character = current_character + 32
+!
+         endif
+!
+!        Replace the character by the (possibly) lowercased letter
+!
+         this%string(element : element) = char(current_character)
+!
+      enddo
+!
+   end subroutine convert_to_lowercase
 !
 !
 end module string_class

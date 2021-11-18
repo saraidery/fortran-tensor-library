@@ -42,12 +42,12 @@ contains
    subroutine substring_found()
 !
       type(string) :: my_string
-      character(len=2)  :: substring
+      type(string) :: substring
 !
       integer :: index, check_bool = 0
       logical :: found
 !
-      substring = "eT"
+      substring = string("eT")
       my_string = string("Is eT the best program?")
 !
       call my_string%find_substring(substring, index, found)
@@ -63,13 +63,13 @@ contains
    @test
    subroutine substring_not_found()
 !
-      character(len=8)  :: substring
+      type(string) :: substring
       type(string) :: my_string
 !
       integer :: index, check_bool = 1
       logical :: found
 !
-      substring = "gaussian"
+      substring = string("gaussian")
       my_string = string("Is eT the best program?")
 !
       call my_string%find_substring(substring, index, found)
@@ -85,13 +85,13 @@ contains
    @test
    subroutine substring_first()
 !
-      character(len=1)  :: substring
+      type(string) :: substring
       type(string) :: my_string
 !
       integer :: index, check_bool = 0
       logical :: found
 !
-      substring = "I"
+      substring = string("I")
       my_string = string("Is eT the best program?")
 !
       call my_string%find_substring(substring, index, found)
@@ -107,13 +107,13 @@ contains
    @test
    subroutine substring_last()
 !
-      character(len=1)  :: substring
+      type(string) :: substring
       type(string) :: my_string
 !
       integer :: index, check_bool = 0
       logical :: found
 !
-      substring = "?"
+      substring = string("?")
       my_string = string("Is eT the best program?")
 !
       call my_string%find_substring(substring, index, found)
@@ -124,5 +124,19 @@ contains
       @assertEqual(23, index)
 !
    end subroutine substring_last
+!
+!
+   @test
+   subroutine convert_to_lowercase()
+!
+      type(string) :: my_string
+!
+      my_string = string("ABCDEFG")
+!
+      call my_string%convert_to_lowercase()
+!
+      @assertEqual(my_string%string, "abcdefg")
+!
+   end subroutine convert_to_lowercase
 !
 end module string_class_test

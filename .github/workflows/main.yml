@@ -6,5 +6,6 @@ jobs:
     container:
       image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
     steps:
-      - run: which gcc
-      - run: gcc --version
+      run: |
+        pwd
+        ls

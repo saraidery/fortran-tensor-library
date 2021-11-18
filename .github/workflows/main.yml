@@ -6,5 +6,10 @@ jobs:
     container:
       image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
     steps:
-      - run: which gcc
-      - run: gcc --version
+      - uses: actions/checkout@v2
+      - run: |
+          export PFUNIT_DIR="/pFUnit/build/installed"
+          mkdir build
+          cd build && pwd
+          cmake -DENABLE_64BIT_INTEGERS=OFF ..
+          make

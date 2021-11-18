@@ -6,7 +6,7 @@ module string_class
 !
    type :: string
 !
-      character(len=:), allocatable :: string
+      character(len=:), allocatable :: chars
 !
       integer :: length
 !
@@ -39,7 +39,7 @@ contains
 !
       character(len=*), intent(in) :: characters
 !
-      this%string = characters
+      this%chars = characters
 !
       this%length = len(characters)
 !
@@ -55,7 +55,7 @@ contains
       type(string), intent(in) :: that
       type(string) :: this
 !
-      this%string = that%string
+      this%chars = that%chars
       this%length = that%length
 !
    end function copy_string
@@ -69,7 +69,7 @@ contains
 !
       class(string), intent(in) :: this
 !
-      print '(a)', this%string
+      print '(a)', this%chars
 !
    end subroutine print_
 !
@@ -116,9 +116,9 @@ contains
 !
       found = .false.
 !
-      do while (cursor .le. len(this%string))
+      do while (cursor .le. len(this%chars))
 !
-         if (this%string(start_index : cursor) == substring%string) then
+         if (this%chars(start_index : cursor) == substring%chars) then
 !
             found = .true.
             exit
@@ -157,7 +157,7 @@ contains
       do element = 1, this%get_length()
 !
 !        Represent character as integer
-         current_character = ichar(this%string(element : element))
+         current_character = ichar(this%chars(element : element))
 !
 !        Convert if character is in the range of uppercase characters
 !
@@ -169,7 +169,7 @@ contains
 !
 !        Replace the character by the (possibly) lowercased letter
 !
-         this%string(element : element) = char(current_character)
+         this%chars(element : element) = char(current_character)
 !
       enddo
 !

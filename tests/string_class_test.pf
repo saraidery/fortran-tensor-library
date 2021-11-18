@@ -135,7 +135,7 @@ contains
 !
       call my_string%convert_to_lowercase()
 !
-      @assertEqual(my_string%string, "abcdefg")
+      @assertEqual(my_string%chars, "abcdefg")
 !
    end subroutine convert_to_lowercase
 !

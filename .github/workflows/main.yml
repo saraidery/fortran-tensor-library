@@ -7,6 +7,7 @@ jobs:
       image: ghcr.io/saraidery/fortran-tensor-library-docker-action:main
     steps:
       - run: |
+          ls
           mkdir build
           cd build && pwd
           ls

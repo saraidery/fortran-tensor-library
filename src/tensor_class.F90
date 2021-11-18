@@ -9,18 +9,18 @@ module tensor_class
 !
    type :: tensor
 !
-      integer, private :: rank
+      integer :: rank
 !
       integer, private :: n_elements
 !
       integer, dimension(:), allocatable, private :: dimensions
 !
-      real(dp), dimension(:), allocatable, private :: array
+      real(dp), dimension(:), allocatable :: array
 !
    contains
 !
       procedure, public :: initialize
-      procedure, private :: get_n_elements
+      procedure, public :: get_n_elements
 !
       final :: destructor
 !

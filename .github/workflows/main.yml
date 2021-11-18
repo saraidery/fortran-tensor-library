@@ -8,15 +8,14 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v2
-      - name: Build and run
+      - name: Build
         run: |
           export PFUNIT_DIR="/pFUnit/build/installed"
           mkdir build
           cd build
           cmake -DENABLE_64BIT_INTEGERS=OFF ..
           make
-          ctest
-      - name: testing somthhing
+      - name: Run tests
         run: |
-          ls
           cd build
+          ctest

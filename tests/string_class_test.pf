@@ -1,0 +1,23 @@
+module string_class_test
+!
+   use funit
+   use string_class, only: string
+!
+contains
+!
+   @test 
+   subroutine test_string_creation()
+!
+      type(string), allocatable :: my_string
+      integer :: length
+!
+      my_string = string("Hello world!")
+!
+      length = my_string%get_length()
+      call my_string%print_()
+!
+      @assertEqual(length, 12)
+!
+   end subroutine test_string_creation
+!
+end module string_class_test

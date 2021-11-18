@@ -12,10 +12,11 @@ module string_class
 !
    contains
 !
-      procedure, public :: get_length
-      procedure, public :: print_
-      procedure, public :: find_substring
-      procedure, public :: convert_to_lowercase
+      procedure :: get_length
+      procedure :: print_
+      procedure :: find_substring
+      procedure :: convert_to_lowercase
+      procedure :: find_longest_common_substring
 !
    end type string
 !
@@ -174,6 +175,83 @@ contains
       enddo
 !
    end subroutine convert_to_lowercase
+!
+!
+   subroutine find_longest_common_substring(string_a, string_b, index_a, index_b, &
+                                            max_length, counter)
+!!
+!!    Find longest common substring
+!!
+!!    Finds longest common substring in string_a and string_b
+!!    and returns the index of the first common element and the length
+!!
+!!    Optional: returns number of equally long substrings
+!!
+      implicit none
+!
+      class(string), intent(in) :: string_a, string_b
+!
+      integer, intent(out) :: index_a, index_b, max_length
+      integer, intent(out), optional :: counter
+!
+      integer, dimension(:,:), allocatable :: substring_lengths
+!
+      integer :: i, j, len_a, len_b, counter_
+!
+      index_a = 0
+      index_b = 0
+      max_length = 0
+!
+      len_a = string_a%get_length()
+      len_b = string_b%get_length()
+!
+      allocate(substring_lengths(len_a, len_b))
+      substring_lengths = 0
+!
+      counter_ = 0
+!
+      do j = 1, len_b
+         do i = 1, len_a
+!
+            if (string_a%chars(i:i) == string_b%chars(j:j)) then
+!
+               if (i == 1 .or. j == 1) then
+!
+                  substring_lengths(i, j) = 1
+!
+               else
+!
+!                 If the previous character matched
+                  substring_lengths(i, j) = substring_lengths(i-1, j-1) + 1
+!
+               end if
+!
+               if (max_length < substring_lengths(i, j)) then
+!
+                  max_length = substring_lengths(i, j)
+                  counter_ = 1
+                  index_a = i - max_length + 1
+                  index_b = j - max_length + 1
+!
+               else if (max_length == substring_lengths(i, j)) then
+!
+                  counter_ = counter_ + 1
+!
+               end if
+!
+            else
+!
+               substring_lengths(i, j) = 0
+!
+            end if
+!
+         end do
+      end do
+!
+      if (present(counter)) counter = counter_
+      deallocate(substring_lengths)
+!
+   end subroutine find_longest_common_substring
 !
 !
 end module string_class

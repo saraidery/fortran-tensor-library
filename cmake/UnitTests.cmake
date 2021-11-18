@@ -17,8 +17,6 @@ endmacro()
 
 # Tensor class
 add_ftensor_unittest(create_tensor "tensor; constructor")
-# String utilities
-add_ftensor_unittest(find_substrings "string; substring")
 # String class
 add_ftensor_unittest(string_class_test "string")
 

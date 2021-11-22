@@ -1,6 +1,7 @@
 module contractor_class_test
 !
    use funit
+   use parameters
    use contractor_class, only: contractor
    use tensor_class, only: tensor
    use string_class, only: string
@@ -35,7 +36,10 @@ contains
       type(string), allocatable :: string_A, string_B
 !
       A = tensor([10, 5, 6, 3])
+      call A%initialize
+!
       B = tensor([6, 3, 8, 4])
+      call B%initialize
 !
       string_a = string("aick")
       string_b = string("ckbj")
@@ -54,6 +58,68 @@ contains
       @assertEqual("N", my_contractor%transpose_B)
 !
    end subroutine determine_contraction
+!
+!
+!
+   @test
+   subroutine two_dimenional_multiplication()
+!
+      type(contractor), allocatable :: my_contractor
+!
+      type(tensor), allocatable :: tensor_A, tensor_B, tensor_C
+      type(string), allocatable :: string_A, string_B
+!
+      real(dp), dimension(4,3) :: A
+      real(dp), dimension(3,5) :: B
+      real(dp), dimension(4,5) :: C
+!
+      integer :: i, j, ij
+!
+      A = reshape([0.83651522d0, 0.00909040d0, 0.15445524d0, 0.08193409d0, &
+                   0.87517964d0, 0.43010649d0, 0.61306039d0, 0.51988886d0, &
+                   0.09661254d0, 0.22191520d0, 0.62782203d0, 0.95878919d0], shape=[4,3])
+!
+      print *, A
+!
+      B = reshape([0.11021998, 0.06241782, 0.44550161, &
+                   0.34611681, 0.67513527, 0.25935785, &
+                   0.52923797, 0.11073611, 0.67651448, &
+                   0.61235895, 0.14990684, 0.88644448, &
+                   0.84832846, 0.26303094, 0.46182454], shape=[3,5])
+!
+      C = reshape([0.18986853, 0.12671183, 0.33498567, 0.46862323, &
+                   0.90545384, 0.35108185, 0.63018882, 0.62802357, &
+                   0.60498939, 0.20256815, 0.57436219, 0.74956787, &
+                   0.72908464, 0.26675800, 0.74301336, 0.97802135, &
+                   0.98445703, 0.22332885, 0.58222624, 0.64904625], shape=[4,5])
+!
+      tensor_A = tensor([4,3])
+      call tensor_A%initialize
+!
+      tensor_B = tensor([3,5])
+      call tensor_B%initialize
+!
+      tensor_C = tensor([4,5])
+      call tensor_C%initialize
+!
+      call tensor_A%set_array(A)
+      call tensor_B%set_array(B)
+!
+      string_A = string("ik")
+      string_B = string("kj")
+!
+      my_contractor = contractor()
+!
+      call my_contractor%contract(tensor_A, string_A, tensor_B, string_B, tensor_C)
+!
+      do j = 1, 5
+         do i = 1, 4
+            ij = 4*(j-1) + i
+            @assertEqual(C(i,j), tensor_C%array(ij), tolerance=1.0d-7)
+         end do
+      end do
+!
+   end subroutine two_dimenional_multiplication
 !
 !
 end module contractor_class_test

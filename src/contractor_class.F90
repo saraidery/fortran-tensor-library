@@ -119,11 +119,11 @@ contains
 !
 !
       if (counter == 0) then
-         stop "Did not find common substring: Cannot determine contraction"
+         error stop "Did not find common substring: Cannot determine contraction"
       end if
 !
       if (counter > 1) then
-         stop "Found more than one common substring: Cannot determine contraction"
+         error stop "Found more than one common substring: Cannot determine contraction"
       end if
 !
 !
@@ -136,7 +136,7 @@ contains
 !
          print '(a,i0,a,i0,a)', "Supposed to contract ", this%K_A, &
                               " elements of A with ", this%K_B, " elements of B."
-         stop "Different number of elements to contract over"
+         error stop "Different number of elements to contract over"
 !
       end if
 !
@@ -178,7 +178,7 @@ contains
 !
       else
 !
-         stop "Could not determine information from array B"
+         error stop "Could not determine information from array B"
 !
       end if
 !
@@ -222,7 +222,7 @@ contains
 !
       else
 !
-         stop "Could not determine information from array B"
+         error stop "Could not determine information from array B"
 !
       end if
 !

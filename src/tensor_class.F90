@@ -27,16 +27,16 @@ module tensor_class
 !
       procedure, public :: sort
 !
-      generic :: get_pointer & 
-              => get_pointer_1, &
-                 get_pointer_2, &
-                 get_pointer_3, & 
-                 get_pointer_4
+      generic, public :: get_pointer & 
+                      => get_pointer_1, &
+                         get_pointer_2, &
+                         get_pointer_3, & 
+                         get_pointer_4
 !
-      procedure, public :: get_pointer_1 
-      procedure, public :: get_pointer_2 
-      procedure, public :: get_pointer_3 
-      procedure, public :: get_pointer_4
+      procedure, private :: get_pointer_1 
+      procedure, private :: get_pointer_2 
+      procedure, private :: get_pointer_3 
+      procedure, private :: get_pointer_4
 !
    end type tensor
 !

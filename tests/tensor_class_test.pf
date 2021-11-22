@@ -203,4 +203,59 @@ contains
 !
    end subroutine zero
 !
+   @test 
+   subroutine add()
+!
+      implicit none 
+!
+      type(tensor), allocatable :: a, b 
+!
+      real(8), dimension(:), pointer :: a_p, b_p 
+!
+      integer :: k 
+!
+      a = tensor([15])
+      call a%initialize()
+!
+      call a%get_pointer(a_p)
+!
+      do k = 1, 15 
+!
+         a_p(k) = 1.0d0 
+!
+      enddo
+!
+      call a%scale_by(2.0d0)
+!
+      do k = 1, 15 
+!
+         @assertEqual(a_p(k), 2.0d0, tolerance=1.0d-12)
+!
+      enddo
+!
+      b = tensor([15])
+      call b%initialize()
+!
+      call b%copy(a)
+!
+      call b%get_pointer(b_p)
+!
+      do k = 1, 15 
+!
+         @assertEqual(b_p(k), 2.0d0, tolerance=1.0d-12)
+!
+      enddo
+!
+      call b%scale_by(2.0d0)
+!
+      call a%add(2.0d0, b)      
+!
+      do k = 1, 15 
+!
+         @assertEqual(a_p(k), 10.0d0, tolerance=1.0d-12)
+!
+      enddo
+!
+   end subroutine add
+!
 end module tensor_class_test

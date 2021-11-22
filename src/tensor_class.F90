@@ -28,6 +28,8 @@ module tensor_class
       procedure, public :: sort
 !
       procedure, public :: copy
+      procedure, public :: add
+      procedure, public :: scale_by
 !
       procedure, public :: set_to_zero
 !
@@ -133,6 +135,8 @@ contains
 !
    subroutine copy(this, that, scale)
 !
+!     this = that
+!
       implicit none 
 !
       class(tensor), intent(in) :: this 
@@ -141,11 +145,39 @@ contains
 !
       real(dp), optional, intent(in) :: scale 
 !
-      call dcopy(this%n_elements, this%array, 1, that%array, 1)
-!
-      if (present(scale)) call dscal(this%n_elements, scale, that%array, 1)
+      call dcopy(this%n_elements, that%array, 1, this%array, 1)
 !
    end subroutine copy
+!
+!
+   subroutine add(this, alpha, that)
+!
+!     this = alpha * that + this
+!
+      implicit none 
+!
+      class(tensor), intent(inout) :: this 
+!
+      class(tensor), intent(in) :: that 
+!
+      real(dp), intent(in) :: alpha 
+!
+      call daxpy(this%n_elements, alpha, that%array, 1, this%array, 1)
+!
+   end subroutine add 
+!
+!
+   subroutine scale_by(this, alpha)
+!
+      implicit none 
+!
+      class(tensor), intent(inout) :: this 
+!
+      real(dp), intent(in) :: alpha 
+!
+      call dscal(this%n_elements, alpha, this%array, 1)
+!
+   end subroutine scale_by
 !
 !
    subroutine set_to_zero(this)

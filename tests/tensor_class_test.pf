@@ -1,0 +1,59 @@
+module tensor_class_test 
+!
+   use funit
+   use tensor_class, only: tensor
+!
+contains
+!
+   @test 
+   subroutine create_tensor()
+!
+      implicit none 
+!
+      type(tensor), allocatable :: my_tensor
+!
+      my_tensor = tensor([5, 100, 2, 6])
+!
+      @assertEqual(1,1)
+!
+   end subroutine create_tensor
+!
+   @test 
+   subroutine sort_2tensor()
+!
+      implicit none 
+!
+      type(tensor), allocatable :: A
+!
+      real(8), dimension(:,:), pointer :: A_pointer 
+!
+      integer :: k, l
+!
+      A = tensor([5,10])
+      call A%initialize()
+!
+      call A%get_2array_pointer(A_pointer)
+!
+      do k = 1, 5 
+         do l = 1, 10 
+!
+            A_pointer(k, l) = k - l 
+!
+         enddo
+      enddo
+!
+      call A%sort2('ab','ba')
+!
+      call A%get_2array_pointer(A_pointer)
+!
+      do k = 1, 5 
+         do l = 1, 10 
+!
+            @assertEqual(A_pointer(l, k), real(k - l, kind=8)) 
+!
+         enddo
+      enddo
+!
+   end subroutine sort_2tensor
+!
+end module tensor_class_test

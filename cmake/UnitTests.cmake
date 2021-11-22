@@ -15,9 +15,6 @@ macro(add_ftensor_unittest _name _labels)
 
 endmacro()
 
-# Tensor class
-add_ftensor_unittest(create_tensor "tensor; constructor")
-# String class
+add_ftensor_unittest(tensor_class_test "tensor; constructor")
 add_ftensor_unittest(string_class_test "string")
-# Contractor class
 add_ftensor_unittest(contractor_class_test "contractor")

@@ -107,6 +107,8 @@ contains
    @test
    subroutine substring_last()
 !
+      implicit none 
+!
       type(string) :: substring
       type(string) :: my_string
 !
@@ -129,6 +131,8 @@ contains
    @test
    subroutine convert_to_lowercase()
 !
+      implicit none 
+!
       type(string) :: my_string
 !
       my_string = string("ABCDEFG")
@@ -142,6 +146,8 @@ contains
 !
    @test
    subroutine find_longest_common_substring()
+!
+      implicit none 
 !
       type(string) :: string_a, string_b
 !
@@ -163,6 +169,8 @@ contains
    @test
    subroutine common_substring_first_index()
 !
+      implicit none 
+!
       type(string) :: string_a, string_b
 !
       integer :: i_a = 0, i_b = 0, length = 0
@@ -182,6 +190,8 @@ contains
    @test
    subroutine common_substring_last_index()
 !
+      implicit none 
+!
       type(string) :: string_a, string_b
 !
       integer :: i_a = 0, i_b = 0, length = 0
@@ -200,6 +210,8 @@ contains
 !
    @test
    subroutine find_two_common_substrings()
+!
+      implicit none 
 !
       type(string) :: string_a, string_b
 !
@@ -221,6 +233,8 @@ contains
    @test
    subroutine no_common_substrings()
 !
+      implicit none 
+!
       type(string) :: string_a, string_b
 !
       integer :: i_a, i_b, length, counter
@@ -236,5 +250,25 @@ contains
       @assertEqual(0, counter, "counter")
 !
    end subroutine no_common_substrings
+!
+!
+   @test 
+   subroutine permutation_string()
+!
+      implicit none 
+!
+      type(string) :: string_a, string_b 
+!
+      integer, dimension(:), allocatable :: indices 
+!
+      string_a = string('abc')
+      string_b = string('bca') ! 231
+!
+      indices = string_b%get_permutation_indices(string_a)
+!
+      @assertEqual(indices, [2,3,1])
+!
+   end subroutine permutation_string
+!
 !
 end module string_class_test

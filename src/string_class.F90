@@ -17,6 +17,8 @@ module string_class
       procedure :: find_substring
       procedure :: convert_to_lowercase
       procedure :: find_longest_common_substring
+      procedure :: get_permutation_indices
+      procedure :: get_chars 
 !
    end type string
 !
@@ -252,6 +254,49 @@ contains
       deallocate(substring_lengths)
 !
    end subroutine find_longest_common_substring
+!
+!
+   function get_chars(this) result(chars)
+!
+      implicit none 
+!
+      class(string), intent(in) :: this 
+!
+      character(this%length), allocatable :: chars 
+!
+      chars = this%chars 
+!
+   end function get_chars
+!
+!
+   function get_permutation_indices(this, that) result(indices)
+!!
+!!    Get permutation indices
+!!
+      implicit none 
+!
+      class(string), intent(in) :: this, that 
+!
+      integer, dimension(this%length) :: indices 
+!
+      character(len=:), allocatable :: that_chars
+!
+      logical :: found 
+!
+      integer :: k
+!
+      that_chars = that%get_chars()
+!
+      do k = 1, this%length
+!
+         call that%find_substring(string(this%chars(k:k)), indices(k), found)
+!
+         if (.not. found) &
+            error stop "Assumed permutation string is not a permutation string!"
+!
+      enddo
+!
+   end function get_permutation_indices
 !
 !
 end module string_class

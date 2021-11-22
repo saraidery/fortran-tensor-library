@@ -177,4 +177,30 @@ contains
 !
    end subroutine copy_and_scale
 !
+   @test 
+   subroutine zero()
+!
+      implicit none 
+!
+      type(tensor), allocatable :: a 
+!
+      real(8), dimension(:), pointer :: a_p
+!
+      integer :: k 
+!
+      a = tensor([15])
+      call a%initialize()
+!
+      call a%set_to_zero()
+!
+      call a%get_pointer(a_p)
+!
+      do k = 1, 15 
+!
+         @assertEqual(a_p(k), 0.0d0, tolerance=1.0d-12)
+!
+      enddo
+!
+   end subroutine zero
+!
 end module tensor_class_test

@@ -26,7 +26,10 @@ module tensor_class
       final :: destructor
 !
       procedure, public :: sort
+!
       procedure, public :: copy
+!
+      procedure, public :: set_to_zero
 !
       generic, public :: get_pointer & 
                       => get_pointer_1, &
@@ -75,13 +78,6 @@ contains
          this%n_elements = this%n_elements * this%dimensions(k)
 !
       enddo
-!
-      print*, "Created tensor object with:"
-!
-      print*, ""
-      print*, "Rank: ", this%rank
-      print*, "Dimensions: ", this%dimensions
-      print*, "Number of elements: ", this%n_elements
 !
    end function new_tensor
 !
@@ -150,6 +146,27 @@ contains
       if (present(scale)) call dscal(this%n_elements, scale, that%array, 1)
 !
    end subroutine copy
+!
+!
+   subroutine set_to_zero(this)
+!
+      use parameters
+!
+      implicit none 
+!
+      class(tensor), intent(inout) :: this 
+!
+      integer :: k 
+!
+!$omp parallel do private(k)
+      do k = 1, this%n_elements
+!
+         this%array(k) = zero 
+!
+      enddo
+!$omp end parallel do
+!
+   end subroutine set_to_zero 
 !
 !
    subroutine sort(this, that, from, to)

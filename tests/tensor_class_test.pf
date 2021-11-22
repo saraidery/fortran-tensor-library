@@ -140,4 +140,41 @@ contains
 !
    end subroutine sort_4tensor
 !
+   @test 
+   subroutine copy_and_scale()
+!
+      implicit none 
+!
+      type(tensor), allocatable :: a, b 
+!
+      real(8), dimension(:), pointer :: a_p, b_p 
+!
+      integer :: k 
+!
+      a = tensor([100])
+      call a%initialize()
+!
+      call a%get_pointer(a_p)
+!
+      do k = 1, 100
+!
+         a_p(k) = k 
+!
+      enddo
+!
+      b = tensor([100])
+      call b%initialize()
+!
+      call a%copy(b)
+!
+      call b%get_pointer(b_p)
+!
+      do k = 1, 100 
+!
+         @assertEqual(a_p(k), b_p(k))
+!
+      enddo
+!
+   end subroutine copy_and_scale
+!
 end module tensor_class_test

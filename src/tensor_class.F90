@@ -26,6 +26,7 @@ module tensor_class
       final :: destructor
 !
       procedure, public :: sort
+      procedure, public :: copy
 !
       generic, public :: get_pointer & 
                       => get_pointer_1, &
@@ -132,6 +133,23 @@ contains
       end do
 !
    end function get_n_elements
+!
+!
+   subroutine copy(this, that, scale)
+!
+      implicit none 
+!
+      class(tensor), intent(in) :: this 
+!
+      class(tensor), intent(inout) :: that 
+!
+      real(dp), optional, intent(in) :: scale 
+!
+      call dcopy(this%n_elements, this%array, 1, that%array, 1)
+!
+      if (present(scale)) call dscal(this%n_elements, scale, that%array, 1)
+!
+   end subroutine copy
 !
 !
    subroutine sort(this, that, from, to)

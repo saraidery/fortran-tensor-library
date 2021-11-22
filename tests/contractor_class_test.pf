@@ -126,7 +126,7 @@ contains
       type(contractor), allocatable :: my_contractor
 !
       type(tensor), allocatable :: tensor_A, tensor_B, tensor_C
-      type(string), allocatable :: string_A, string_B
+     ! type(string), allocatable :: string_A, string_B
 !
       real(dp), dimension(4,3) :: A
       real(dp), dimension(3) :: B
@@ -154,12 +154,12 @@ contains
       call tensor_A%set_array(A)
       call tensor_B%set_array(B)
 !
-      string_A = string("ik")
-      string_B = string("kj")
-!
+     ! string_A = string("ik")
+     ! string_B = string("kj")
+!!
       my_contractor = contractor()
 !
-      call my_contractor%contract(tensor_A, string_A, tensor_B, string_B, tensor_C)
+      call my_contractor%contract(tensor_A, 'ik', tensor_B, 'kj', tensor_C)
 !
       do i = 1, 4
          @assertEqual(C(i), tensor_C%array(i), tolerance=1.0d-7)

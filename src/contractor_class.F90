@@ -63,7 +63,8 @@ contains
       type(tensor), intent(in)    :: A, B
       type(tensor), intent(inout) :: C
 !
-      type(string), intent(in) :: indices_A, indices_B
+      !type(string), intent(in) :: indices_A, indices_B
+      character(len=*), intent(in) :: indices_A, indices_B
 !
       real(dp), intent(in), optional :: alpha, beta
 !

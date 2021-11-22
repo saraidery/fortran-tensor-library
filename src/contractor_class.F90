@@ -63,7 +63,7 @@ contains
       type(tensor), intent(in)    :: A, B
       type(tensor), intent(inout) :: C
 !
-      character(len=*), intent(in) :: indices_A, indices_B
+      type(string), intent(in) :: indices_A, indices_B
 !
       real(dp), intent(in), optional :: alpha, beta
 !
@@ -82,7 +82,6 @@ contains
 !
       call this%determine_contraction(A, string_A, B, string_B)
 !
-!
       call dgemm(this%transpose_A,         &
                  this%transpose_B,         &
                  this%M,                   &
@@ -94,9 +93,8 @@ contains
                  B%array,                  &
                  this%leading_dimension_B, &
                  beta_,                    &
-                 C,                        &
+                 C%array,                  &
                  this%M)
-!
 !
       call this%reset
 !
@@ -124,7 +122,7 @@ contains
          stop "Did not find common substring: Cannot determine contraction"
       end if
 !
-      if (counter > 0) then
+      if (counter > 1) then
          stop "Found more than one common substring: Cannot determine contraction"
       end if
 !

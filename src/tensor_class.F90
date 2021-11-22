@@ -21,6 +21,7 @@ module tensor_class
 !
       procedure, public :: initialize
       procedure, public :: get_n_elements
+      procedure, public :: set_array
 !
       final :: destructor
 !
@@ -118,6 +119,20 @@ contains
       end do
 !
    end function get_n_elements
+!
+!
+   subroutine set_array(this, array)
+!!
+!!    Set array
+!!
+      implicit none
+!
+      class(tensor), intent(inout) :: this
+      real(dp), dimension(this%n_elements), intent(in) :: array
+!
+      call dcopy(this%n_elements, array, 1, this%array, 1)
+!
+   end subroutine set_array
 !
 !
 end module tensor_class

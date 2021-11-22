@@ -62,7 +62,7 @@ contains
 !
 !
    @test
-   subroutine two_dimenional_multiplication()
+   subroutine matrix_multiplication_2D()
 !
       type(contractor), allocatable :: my_contractor
 !
@@ -78,8 +78,6 @@ contains
       A = reshape([0.83651522d0, 0.00909040d0, 0.15445524d0, 0.08193409d0, &
                    0.87517964d0, 0.43010649d0, 0.61306039d0, 0.51988886d0, &
                    0.09661254d0, 0.22191520d0, 0.62782203d0, 0.95878919d0], shape=[4,3])
-!
-      print *, A
 !
       B = reshape([0.11021998, 0.06241782, 0.44550161, &
                    0.34611681, 0.67513527, 0.25935785, &
@@ -119,7 +117,55 @@ contains
          end do
       end do
 !
-   end subroutine two_dimenional_multiplication
+   end subroutine matrix_multiplication_2D
+!
+!
+   @test
+   subroutine matrix_vector_multiplication()
+!
+      type(contractor), allocatable :: my_contractor
+!
+      type(tensor), allocatable :: tensor_A, tensor_B, tensor_C
+      type(string), allocatable :: string_A, string_B
+!
+      real(dp), dimension(4,3) :: A
+      real(dp), dimension(3) :: B
+      real(dp), dimension(4) :: C
+!
+      integer :: i
+!
+      A = reshape([0.83651522d0, 0.00909040d0, 0.15445524d0, 0.08193409d0, &
+                   0.87517964d0, 0.43010649d0, 0.61306039d0, 0.51988886d0, &
+                   0.09661254d0, 0.22191520d0, 0.62782203d0, 0.95878919d0], shape=[4,3])
+!
+      B = [0.11021998, 0.06241782, 0.44550161]
+!
+      C = [0.18986853, 0.12671183, 0.33498567, 0.46862323]
+!
+      tensor_A = tensor([4,3])
+      call tensor_A%initialize
+!
+      tensor_B = tensor([3,1])
+      call tensor_B%initialize
+!
+      tensor_C = tensor([4,1])
+      call tensor_C%initialize
+!
+      call tensor_A%set_array(A)
+      call tensor_B%set_array(B)
+!
+      string_A = string("ik")
+      string_B = string("kj")
+!
+      my_contractor = contractor()
+!
+      call my_contractor%contract(tensor_A, string_A, tensor_B, string_B, tensor_C)
+!
+      do i = 1, 4
+         @assertEqual(C(i), tensor_C%array(i), tolerance=1.0d-7)
+      end do
+!
+   end subroutine matrix_vector_multiplication
 !
 !
 end module contractor_class_test

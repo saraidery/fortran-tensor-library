@@ -133,7 +133,7 @@ contains
    end function get_n_elements
 !
 !
-   subroutine copy(this, that, scale)
+   subroutine copy(this, that)
 !
 !     this = that
 !
@@ -142,8 +142,6 @@ contains
       class(tensor), intent(in) :: this 
 !
       class(tensor), intent(inout) :: that 
-!
-      real(dp), optional, intent(in) :: scale 
 !
       call dcopy(this%n_elements, that%array, 1, this%array, 1)
 !

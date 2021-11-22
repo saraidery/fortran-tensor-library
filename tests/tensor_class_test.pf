@@ -6,54 +6,138 @@ module tensor_class_test
 contains
 !
    @test 
-   subroutine create_tensor()
-!
-      implicit none 
-!
-      type(tensor), allocatable :: my_tensor
-!
-      my_tensor = tensor([5, 100, 2, 6])
-!
-      @assertEqual(1,1)
-!
-   end subroutine create_tensor
-!
-   @test 
    subroutine sort_2tensor()
 !
       implicit none 
 !
-      type(tensor), allocatable :: A
+      type(tensor), allocatable :: A, B 
 !
-      real(8), dimension(:,:), pointer :: A_pointer 
+      real(8), dimension(:,:), pointer :: A_p, B_p 
 !
       integer :: k, l
 !
-      A = tensor([5,10])
+      A = tensor([50,100])
       call A%initialize()
 !
-      call A%get_2array_pointer(A_pointer)
+      call A%get_pointer(A_p)
 !
-      do k = 1, 5 
-         do l = 1, 10 
+      do k = 1, 50 
+         do l = 1, 100 
 !
-            A_pointer(k, l) = k - l 
+            A_p(k, l) = k - l 
 !
          enddo
       enddo
 !
-      call A%sort2('ab','ba')
+      B = tensor([100,50])
+      call B%initialize()
 !
-      call A%get_2array_pointer(A_pointer)
+      call A%sort(B, 'ab', 'ba')
 !
-      do k = 1, 5 
-         do l = 1, 10 
+      call B%get_pointer(B_p)
 !
-            @assertEqual(A_pointer(l, k), real(k - l, kind=8)) 
+      do k = 1, 50 
+         do l = 1, 100 
+!
+            @assertEqual(B_p(l, k), A_p(k, l)) 
 !
          enddo
       enddo
 !
    end subroutine sort_2tensor
+!
+   @test 
+   subroutine sort_3tensor()
+!
+      implicit none 
+!
+      type(tensor), allocatable :: A, B 
+!
+      real(8), dimension(:,:,:), pointer :: A_p, B_p 
+!
+      integer :: k, l, m
+!
+      A = tensor([50,100,75])
+      call A%initialize()
+!
+      call A%get_pointer(A_p)
+!
+      do k = 1, 50 
+         do l = 1, 100 
+            do m = 1, 75
+!
+               A_p(k, l, m) = k - l + m 
+!
+            enddo
+         enddo
+      enddo
+!
+      B = tensor([100,75,50])
+      call B%initialize()
+!
+      call A%sort(B, 'abc', 'bca')
+!
+      call B%get_pointer(B_p)
+!
+      do k = 1, 50 
+         do l = 1, 100 
+            do m = 1, 75
+!
+               @assertEqual(B_p(l, m, k), A_p(k, l, m)) 
+!
+            enddo
+         enddo
+      enddo
+!
+   end subroutine sort_3tensor
+!
+   @test 
+   subroutine sort_4tensor()
+!
+      implicit none 
+!
+      type(tensor), allocatable :: A, B 
+!
+      real(8), dimension(:,:,:,:), pointer :: A_p, B_p 
+!
+      integer :: k, l, m, n
+!
+      A = tensor([20,30,25,15])
+      call A%initialize()
+!
+      call A%get_pointer(A_p)
+!
+      do k = 1, 20 
+         do l = 1, 30 
+            do m = 1, 25
+               do n = 1, 15
+!
+               A_p(k, l, m, n) = 2*k - l + 3*m - n 
+!
+               enddo
+            enddo
+         enddo
+      enddo
+!
+      B = tensor([25,30,20,15])
+      call B%initialize()
+!
+      call A%sort(B, 'abcd', 'cbad')
+!
+      call B%get_pointer(B_p)
+!
+      do k = 1, 20 
+         do l = 1, 30 
+            do m = 1, 25
+               do n = 1, 15
+!
+                  @assertEqual(B_p(m, l, k, n), A_p(k, l, m, n)) 
+!
+               enddo
+            enddo
+         enddo
+      enddo
+!
+   end subroutine sort_4tensor
 !
 end module tensor_class_test
